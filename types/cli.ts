@@ -3,12 +3,13 @@ import { CODEX_MODEL_DEFINITIONS } from '@/lib/constants/codexModels';
 import { CURSOR_MODEL_DEFINITIONS } from '@/lib/constants/cursorModels';
 import { QWEN_MODEL_DEFINITIONS } from '@/lib/constants/qwenModels';
 import { GLM_MODEL_DEFINITIONS } from '@/lib/constants/glmModels';
+import { GROQ_MODEL_DEFINITIONS } from '@/lib/constants/groqModels';
 
 /**
  * Frontend CLI Type Definitions (claude-only variant)
  */
 
-export type CLIType = 'claude' | 'cursor' | 'codex' | 'gemini' | 'qwen' | 'glm';
+export type CLIType = 'claude' | 'cursor' | 'codex' | 'gemini' | 'qwen' | 'glm' | 'groq';
 
 export interface CLIModel {
   id: string;
@@ -146,6 +147,26 @@ export const CLI_OPTIONS: CLIOption[] = [
     installCommand: 'zai devpack install claude',
     features: ['Claude-compatible agent runtime', 'GLM 4.6 reasoning'],
     models: GLM_MODEL_DEFINITIONS.map(({ id, name, description, supportsImages }) => ({
+      id,
+      name,
+      description,
+      supportsImages,
+    })),
+  },
+  {
+    id: 'groq',
+    name: 'Groq (Free)',
+    description: 'Ultra-fast LLM inference with free API tier',
+    icon: '/groq.png',
+    available: true,
+    configured: false,
+    enabled: true,
+    color: 'from-orange-500 to-pink-600',
+    brandColor: '#F55036',
+    downloadUrl: 'https://console.groq.com/',
+    installCommand: 'Get free API key at console.groq.com',
+    features: ['Free API tier', 'Ultra-fast inference', 'Llama 3.3 70B', 'DeepSeek R1'],
+    models: GROQ_MODEL_DEFINITIONS.map(({ id, name, description, supportsImages }) => ({
       id,
       name,
       description,
