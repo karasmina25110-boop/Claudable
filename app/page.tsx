@@ -671,39 +671,18 @@ export default function HomePage() {
 
 
   return (
-    <div className="flex h-screen relative overflow-hidden bg-white ">
-      {/* Radial gradient background from bottom center */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-white " />
-        <div 
-          className="absolute inset-0 hidden transition-all duration-1000 ease-in-out"
-          style={{
-            background: `radial-gradient(circle at 50% 100%, 
-              ${(assistantBrandColors[selectedAssistant] || assistantBrandColors.claude)}66 0%, 
-              ${(assistantBrandColors[selectedAssistant] || assistantBrandColors.claude)}4D 25%, 
-              ${(assistantBrandColors[selectedAssistant] || assistantBrandColors.claude)}33 50%, 
-              transparent 70%)`
-          }}
-        />
-        {/* Light mode gradient - subtle */}
-        <div 
-          className="absolute inset-0 block transition-all duration-1000 ease-in-out"
-          style={{
-            background: `radial-gradient(circle at 50% 100%, 
-              ${(assistantBrandColors[selectedAssistant] || assistantBrandColors.claude)}40 0%, 
-              ${(assistantBrandColors[selectedAssistant] || assistantBrandColors.claude)}26 25%, 
-              transparent 50%)`
-          }}
-        />
-      </div>
+    <div className="flex h-screen relative overflow-hidden bg-background-primary">
+      {/* Animated gradient background */}
+      <div className="animated-gradient-bg" />
+      <div className="gradient-rays" />
       
       {/* Content wrapper */}
       <div className="relative z-10 flex h-full w-full">
         {/* Thin sidebar bar when closed */}
-        <div className={`${sidebarOpen ? 'w-0' : 'w-12'} fixed inset-y-0 left-0 z-40 bg-transparent border-r border-gray-200/20 transition-all duration-300 flex flex-col`}>
+        <div className={`${sidebarOpen ? 'w-0' : 'w-12'} fixed inset-y-0 left-0 z-40 bg-transparent border-r border-border transition-all duration-300 flex flex-col`}>
           <button
             onClick={() => setSidebarOpen(true)}
-            className="w-full h-12 flex items-center justify-center text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+            className="w-full h-12 flex items-center justify-center text-text-tertiary hover:text-text-primary hover:bg-background-tertiary transition-colors"
             title="Open sidebar"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -715,7 +694,7 @@ export default function HomePage() {
           <div className="mt-auto mb-2">
             <button
               onClick={() => setShowGlobalSettings(true)}
-              className="w-full h-12 flex items-center justify-center text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+              className="w-full h-12 flex items-center justify-center text-text-tertiary hover:text-text-primary hover:bg-background-tertiary transition-colors"
               title="Settings"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -727,17 +706,17 @@ export default function HomePage() {
         </div>
         
         {/* Sidebar - Overlay style */}
-        <div className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} fixed inset-y-0 left-0 z-40 w-64 bg-white/95 backdrop-blur-2xl border-r border-gray-200 transition-transform duration-300`}>
+        <div className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} fixed inset-y-0 left-0 z-40 w-64 glass-card-elevated transition-transform duration-300`}>
         <div className="flex flex-col h-full">
           {/* History header with close button */}
-          <div className="p-3 border-b border-gray-200 ">
+          <div className="p-3 border-b border-border">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 px-2 py-1">
-                <h2 className="text-gray-900 font-medium text-lg">History</h2>
+                <h2 className="text-text-primary font-medium text-lg">History</h2>
               </div>
               <button
                 onClick={() => setSidebarOpen(false)}
-                className="p-1 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors"
+                className="p-1 text-text-tertiary hover:text-text-primary hover:bg-background-tertiary rounded transition-colors"
                 title="Close sidebar"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -751,7 +730,7 @@ export default function HomePage() {
             <div className="space-y-1">
               {projects.length === 0 ? (
                 <div className="text-center py-8">
-                  <p className="text-gray-500 text-sm">No conversations yet</p>
+                  <p className="text-text-muted text-sm">No conversations yet</p>
                 </div>
               ) : (
                 projects.map((project) => {
@@ -784,21 +763,21 @@ export default function HomePage() {
                         <input
                           name="name"
                           defaultValue={project.name}
-                          className="w-full px-2 py-1 text-sm bg-white border border-gray-300 rounded text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                          className="w-full px-2 py-1 text-sm bg-background-tertiary border border-border rounded text-text-primary focus:outline-none focus:ring-2 focus:ring-primary-pink"
                           autoFocus
                           onBlur={() => setEditingProject(null)}
                         />
                         <div className="flex gap-1">
                           <button
                             type="submit"
-                            className="px-2 py-1 text-xs bg-orange-500 text-white rounded hover:bg-orange-600 transition-colors"
+                            className="px-2 py-1 text-xs gradient-button text-white rounded transition-colors"
                           >
                             Save
                           </button>
                           <button
                             type="button"
                             onClick={() => setEditingProject(null)}
-                            className="px-2 py-1 text-xs bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors"
+                            className="px-2 py-1 text-xs bg-background-tertiary text-text-secondary rounded hover:bg-background-secondary transition-colors"
                           >
                             Cancel
                           </button>
@@ -818,7 +797,7 @@ export default function HomePage() {
                           }}
                         >
                           <h3 
-                            className="text-gray-900 text-sm transition-colors truncate"
+                            className="text-text-primary text-sm transition-colors truncate"
                             style={{
                               '--hover-color': projectColor || '#DE7356'
                             } as React.CSSProperties}
@@ -836,12 +815,12 @@ export default function HomePage() {
                             </span>
                           </h3>
                           <div className="flex items-center gap-2 mt-1">
-                            <div className="text-gray-500 text-xs">
+                            <div className="text-text-muted text-xs">
                               {formatTime(project.lastMessageAt || project.createdAt)}
                             </div>
                             {project.preferredCli && (
                               <div className="flex items-center gap-1">
-                                <span className="text-gray-400 text-xs">•</span>
+                                <span className="text-text-muted text-xs">•</span>
                                 <span
                                   className="text-xs transition-colors"
                                   style={{
@@ -860,7 +839,7 @@ export default function HomePage() {
                               e.stopPropagation();
                               setEditingProject(project);
                             }}
-                            className="p-1 text-gray-400 hover:text-orange-500 transition-colors"
+                            className="p-1 text-text-muted hover:text-primary-pink transition-colors"
                             title="Edit project name"
                           >
                             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -872,7 +851,7 @@ export default function HomePage() {
                               e.stopPropagation();
                               openDeleteModal(project);
                             }}
-                            className="p-1 text-gray-400 hover:text-red-500 transition-colors"
+                            className="p-1 text-text-muted hover:text-primary-red transition-colors"
                             title="Delete project"
                           >
                             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -889,10 +868,10 @@ export default function HomePage() {
             </div>
           </div>
           
-          <div className="p-2 border-t border-gray-200 ">
+          <div className="p-2 border-t border-border">
             <button 
               onClick={() => setShowGlobalSettings(true)}
-              className="w-full flex items-center gap-2 p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all text-sm"
+              className="w-full flex items-center gap-2 p-2 text-text-secondary hover:text-text-primary hover:bg-background-tertiary rounded-lg transition-all text-sm"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -911,20 +890,17 @@ export default function HomePage() {
             <div className="text-center mb-12">
               <div className="flex justify-center mb-6">
                 <h1 
-                  className="font-extrabold tracking-tight select-none transition-colors duration-1000 ease-in-out"
+                  className="font-extrabold tracking-tight select-none gradient-text text-7xl"
                   style={{
                     fontFamily: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-                    color: (assistantBrandColors[selectedAssistant] || assistantBrandColors.claude),
                     letterSpacing: '-0.06em',
                     fontWeight: 800,
-                    fontSize: '72px',
-                    lineHeight: '72px'
                   }}
                 >
                   Claudable
                 </h1>
               </div>
-              <p className="text-xl text-gray-700 font-light tracking-tight">
+              <p className="text-xl text-text-secondary font-light tracking-tight">
                 Connect CLI Agent • Build what you want • Deploy instantly
               </p>
             </div>
@@ -938,17 +914,17 @@ export default function HomePage() {
                     <img 
                       src={image.url} 
                       alt={image.name}
-                      className="w-20 h-20 object-cover rounded-lg border border-gray-200 "
+                      className="w-20 h-20 object-cover rounded-lg border border-border"
                     />
-                    <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-xs px-1 py-0.5 rounded-b-lg">
+                    <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white text-xs px-1 py-0.5 rounded-b-lg">
                       Image #{index + 1}
                     </div>
                     <button
                       type="button"
                       onClick={() => removeImage(image.id)}
-                      className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+                      className="absolute -top-2 -right-2 w-5 h-5 bg-primary-red text-white rounded-full flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
                     >
-                      ×
+                      x
                     </button>
                   </div>
                 ))}
@@ -962,10 +938,10 @@ export default function HomePage() {
               onDragLeave={handleDragLeave}
               onDragOver={handleDragOver}
               onDrop={handleDrop}
-              className={`group flex flex-col gap-4 p-4 w-full rounded-[28px] border backdrop-blur-xl text-base shadow-xl transition-all duration-150 ease-in-out mb-6 relative overflow-visible ${
+              className={`group flex flex-col gap-4 p-4 w-full rounded-[28px] backdrop-blur-xl text-base shadow-xl transition-all duration-150 ease-in-out mb-6 relative overflow-visible glass-card-elevated gradient-border ${
                 isDragOver 
-                  ? 'border-[#DE7356] bg-[#DE7356]/10 ' 
-                  : 'border-gray-200 bg-white '
+                  ? 'border-primary-pink' 
+                  : ''
               }`}
             >
               <div className="relative flex flex-1 items-center">
@@ -974,7 +950,7 @@ export default function HomePage() {
                   onChange={(e) => setPrompt(e.target.value)}
                   placeholder="Ask Claudable to create a blog about..."
                   disabled={isCreatingProject}
-                  className="flex w-full rounded-md px-2 py-2 placeholder:text-gray-400 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 resize-none text-[16px] leading-snug md:text-base focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent focus:bg-transparent flex-1 text-gray-900 overflow-y-auto"
+                  className="flex w-full rounded-md px-2 py-2 placeholder:text-text-muted focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 resize-none text-[16px] leading-snug md:text-base focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent focus:bg-transparent flex-1 text-text-primary overflow-y-auto"
                   style={{ height: '120px' }}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
@@ -992,13 +968,13 @@ export default function HomePage() {
               
               {/* Drag overlay */}
               {isDragOver && (
-                <div className="absolute inset-0 bg-[#DE7356]/10 rounded-[28px] flex items-center justify-center z-10 border-2 border-dashed border-[#DE7356]">
+                <div className="absolute inset-0 bg-primary-pink/10 rounded-[28px] flex items-center justify-center z-10 border-2 border-dashed border-primary-pink">
                   <div className="text-center">
-                    <div className="text-3xl mb-3">📸</div>
-                    <div className="text-lg font-semibold text-[#DE7356] mb-2">
+                    <ImageIcon className="w-8 h-8 text-primary-pink mx-auto mb-2" />
+                    <div className="text-lg font-semibold text-primary-pink mb-2">
                       Drop images here
                     </div>
-                    <div className="text-sm text-[#DE7356] ">
+                    <div className="text-sm text-text-secondary">
                       Supports: JPG, PNG, GIF, WEBP
                     </div>
                   </div>
@@ -1009,7 +985,7 @@ export default function HomePage() {
                 {/* Image Upload Button */}
                 <div className="flex items-center gap-2">
                   <label 
-                    className="flex items-center justify-center w-8 h-8 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex items-center justify-center w-8 h-8 text-text-tertiary hover:text-text-secondary hover:bg-background-tertiary rounded-full transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                     title="Upload images"
                   >
                     <ImageIcon className="h-4 w-4" />
@@ -1032,7 +1008,7 @@ export default function HomePage() {
                       setShowAssistantDropdown(!showAssistantDropdown);
                       setShowModelDropdown(false);
                     }}
-                    className="justify-center whitespace-nowrap text-sm font-medium transition-colors duration-100 ease-in-out focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 border border-gray-200/50 bg-transparent shadow-sm hover:bg-gray-50 hover:border-gray-300/50 px-3 py-2 flex h-8 items-center gap-1 rounded-full text-gray-700 hover:text-gray-900 focus-visible:ring-0"
+                    className="justify-center whitespace-nowrap text-sm font-medium transition-colors duration-100 ease-in-out focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 border border-border bg-background-secondary/50 shadow-sm hover:bg-background-tertiary px-3 py-2 flex h-8 items-center gap-1 rounded-full text-text-secondary hover:text-text-primary focus-visible:ring-0"
                   >
                     <div className="w-4 h-4 rounded overflow-hidden">
                       <Image
@@ -1052,7 +1028,7 @@ export default function HomePage() {
                   </button>
                   
                   {showAssistantDropdown && (
-                    <div className="absolute top-full mt-1 left-0 z-[300] min-w-full whitespace-nowrap rounded-2xl border border-gray-200 bg-white backdrop-blur-xl shadow-lg">
+                    <div className="absolute top-full mt-1 left-0 z-[300] min-w-full whitespace-nowrap rounded-2xl border border-border glass-card-elevated shadow-lg">
                       {ASSISTANT_OPTIONS.map((option) => (
                         <button
                           key={option.id}
@@ -1060,10 +1036,10 @@ export default function HomePage() {
                           disabled={!cliStatus[option.id]?.installed}
                           className={`w-full flex items-center gap-2 px-3 py-2 text-left first:rounded-t-2xl last:rounded-b-2xl transition-colors ${
                             !cliStatus[option.id]?.installed
-                              ? 'opacity-50 cursor-not-allowed text-gray-400 '
+                              ? 'opacity-50 cursor-not-allowed text-text-muted'
                               : selectedAssistant === option.id 
-                              ? 'bg-gray-100 text-black font-semibold' 
-                              : 'text-gray-800 hover:text-black hover:bg-gray-100 '
+                              ? 'bg-background-tertiary text-text-primary font-semibold' 
+                              : 'text-text-secondary hover:text-text-primary hover:bg-background-tertiary'
                           }`}
                         >
                           <div className="w-4 h-4 rounded overflow-hidden">
@@ -1090,7 +1066,7 @@ export default function HomePage() {
                       setShowModelDropdown((current) => !current);
                       setShowAssistantDropdown(false);
                     }}
-                    className="justify-center whitespace-nowrap text-sm font-medium transition-colors duration-100 ease-in-out focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 border border-gray-200/50 bg-transparent shadow-sm hover:bg-gray-50 hover:border-gray-300/50 px-3 py-2 flex h-8 items-center gap-1 rounded-full text-gray-700 hover:text-gray-900 focus-visible:ring-0 min-w-[140px]"
+                    className="justify-center whitespace-nowrap text-sm font-medium transition-colors duration-100 ease-in-out focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 border border-border bg-background-secondary/50 shadow-sm hover:bg-background-tertiary px-3 py-2 flex h-8 items-center gap-1 rounded-full text-text-secondary hover:text-text-primary focus-visible:ring-0 min-w-[140px]"
                   >
                     <span className="text-sm font-medium whitespace-nowrap">
                       {availableModels.find(m => m.id === selectedModel)?.name ?? getModelDisplayName(selectedAssistant, selectedModel)}
@@ -1101,15 +1077,15 @@ export default function HomePage() {
                   </button>
                   
                   {showModelDropdown && (
-                    <div className="absolute top-full mt-1 left-0 z-[300] min-w-full max-h-[300px] overflow-y-auto rounded-2xl border border-gray-200 bg-white backdrop-blur-xl shadow-lg">
+                    <div className="absolute top-full mt-1 left-0 z-[300] min-w-full max-h-[300px] overflow-y-auto rounded-2xl border border-border glass-card-elevated shadow-lg">
                       {availableModels.map((model) => (
                           <button
                             key={model.id}
                             onClick={() => handleModelChange(model.id)}
                             className={`w-full px-3 py-2 text-left first:rounded-t-2xl last:rounded-b-2xl transition-colors ${
                               selectedModel === model.id 
-                                ? 'bg-gray-100 text-black font-semibold' 
-                                : 'text-gray-800 hover:text-black hover:bg-gray-100 '
+                                ? 'bg-background-tertiary text-text-primary font-semibold' 
+                                : 'text-text-secondary hover:text-text-primary hover:bg-background-tertiary'
                             }`}
                           >
                             <span className="text-sm font-medium">{model.name}</span>
@@ -1124,7 +1100,7 @@ export default function HomePage() {
                   <button
                     type="submit"
                     disabled={(!prompt.trim() && uploadedImages.length === 0) || isCreatingProject}
-                    className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-900 text-white transition-opacity duration-150 ease-out disabled:cursor-not-allowed disabled:opacity-50 hover:scale-110"
+                    className="flex h-8 w-8 items-center justify-center rounded-full gradient-button text-white transition-opacity duration-150 ease-out disabled:cursor-not-allowed disabled:opacity-50 hover:scale-110"
                   >
                     {isCreatingProject ? (
                       <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -1169,7 +1145,7 @@ export default function HomePage() {
                   key={example.text}
                   onClick={() => setPrompt(example.prompt)}
                   disabled={isCreatingProject}
-                  className="px-4 py-2 text-sm font-medium text-gray-500 bg-transparent border border-[#DE7356]/10 rounded-full hover:bg-gray-50 hover:border-[#DE7356]/15 hover:text-gray-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-4 py-2 text-sm font-medium text-text-secondary bg-background-secondary/50 border border-border rounded-full hover:bg-background-tertiary hover:border-primary-pink/30 hover:text-text-primary transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {example.text}
                 </button>
