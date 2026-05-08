@@ -21,15 +21,33 @@
     -webkit-overflow-scrolling: touch;
   }
   
+  :root {
+    --gradient-opacity: 0.8;
+    --primary-blue: #3b82f6;
+    --primary-pink: #ec4899;
+    --primary-red: #ef4444;
+    --primary-purple: #8b5cf6;
+    
+    --background-primary: #0c0a14;
+    --background-secondary: #15111e;
+    --background-tertiary: #1e1a2a;
+    --border-color: rgba(139, 92, 246, 0.2);
+    --text-primary: #e5e2ff;
+    --text-secondary: #a8a4ce;
+    --text-tertiary: #6b6685;
+    --text-muted: #4a4560;
+  }
+  
   /* Light mode overrides */
   :root.light {
-    --bolt-bg-primary: #ffffff;
-    --bolt-bg-secondary: #f9fafb;
-    --bolt-bg-tertiary: #f3f4f6;
-    --bolt-border-color: rgba(139, 92, 246, 0.15);
-    --bolt-text-primary: #111827;
-    --bolt-text-secondary: #6b7280;
-    --bolt-text-tertiary: #9ca3af;
+    --background-primary: #ffffff;
+    --background-secondary: #f9fafb;
+    --background-tertiary: #f3f4f6;
+    --border-color: rgba(139, 92, 246, 0.15);
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --text-tertiary: #9ca3af;
+    --text-muted: #d1d5db;
   }
 
   html.theme-preload,
@@ -40,45 +58,178 @@
 }
 
 @layer components {
+  /* Glass card effects */
+  .glass-card {
+    background: rgba(21, 17, 30, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(139, 92, 246, 0.15);
+    border-radius: 1rem;
+  }
+  
+  .glass-card-elevated {
+    background: rgba(30, 26, 42, 0.9);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 1rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+  
   /* Modern gradient modal background with subtle pattern */
   .modal-backdrop {
     background: 
       radial-gradient(circle at 20% 20%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
       radial-gradient(circle at 80% 80%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
       radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%),
-      linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      linear-gradient(135deg, #0c0a14 0%, #15111e 100%);
   }
   
   .modal-content {
-    @apply bg-white rounded-2xl shadow-2xl border border-gray-100;
-    background: 
-      radial-gradient(circle at 100% 0%, rgba(120, 119, 198, 0.05) 0%, transparent 50%),
-      radial-gradient(circle at 0% 100%, rgba(255, 119, 198, 0.05) 0%, transparent 50%),
-      white;
+    background: rgba(21, 17, 30, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Gradient select dropdown */
+  .gradient-select {
+    background: rgba(30, 26, 42, 0.9);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 0.5rem;
+    color: var(--text-primary);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+  
+  .gradient-select:hover {
+    border-color: rgba(139, 92, 246, 0.4);
+  }
+  
+  .gradient-select:focus {
+    border-color: var(--primary-pink);
+    box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.2);
+  }
+  
+  .gradient-select option {
+    background: #1e1a2a;
+    color: var(--text-primary);
+  }
+  
+  /* Gradient input */
+  .gradient-input {
+    background: rgba(30, 26, 42, 0.9);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 0.5rem;
+    color: var(--text-primary);
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+  
+  .gradient-input::placeholder {
+    color: var(--text-muted);
+  }
+  
+  .gradient-input:hover {
+    border-color: rgba(139, 92, 246, 0.4);
+  }
+  
+  .gradient-input:focus {
+    border-color: var(--primary-pink);
+    box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.2);
+  }
+  
+  /* Gradient button */
+  .gradient-button {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-pink), var(--primary-red));
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .gradient-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3);
+  }
+  
+  .gradient-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  /* Animated gradient border */
+  .gradient-border {
+    position: relative;
+    background: var(--background-secondary);
+    border-radius: 1rem;
+  }
+  
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-pink), var(--primary-red), var(--primary-blue));
+    background-size: 300% 300%;
+    animation: gradientRotate 4s linear infinite;
+    z-index: -1;
+  }
+  
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-pink), var(--primary-red));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
   }
 }
 
 @layer utilities {
-  /* Bolt.diy style color variables */
-  :root {
-    --gradient-opacity: 0.8;
-    --primary-color: rgba(139, 92, 246, var(--gradient-opacity));
-    --secondary-color: rgba(236, 72, 153, var(--gradient-opacity));
-    --accent-color: rgba(59, 130, 246, var(--gradient-opacity));
-    --bolt-bg-primary: #0c0a14;
-    --bolt-bg-secondary: #15111e;
-    --bolt-bg-tertiary: #1e1a2a;
-    --bolt-border-color: rgba(139, 92, 246, 0.2);
-    --bolt-text-primary: #e5e2ff;
-    --bolt-text-secondary: #a8a4ce;
-    --bolt-text-tertiary: #6b6685;
+  /* Color utility classes using CSS variables */
+  .bg-background-primary { background-color: var(--background-primary); }
+  .bg-background-secondary { background-color: var(--background-secondary); }
+  .bg-background-tertiary { background-color: var(--background-tertiary); }
+  .border-border { border-color: var(--border-color); }
+  .text-text-primary { color: var(--text-primary); }
+  .text-text-secondary { color: var(--text-secondary); }
+  .text-text-tertiary { color: var(--text-tertiary); }
+  .text-text-muted { color: var(--text-muted); }
+  .text-primary-blue { color: var(--primary-blue); }
+  .text-primary-pink { color: var(--primary-pink); }
+  .text-primary-red { color: var(--primary-red); }
+  .bg-primary-blue { background-color: var(--primary-blue); }
+  .bg-primary-pink { background-color: var(--primary-pink); }
+  .bg-primary-red { background-color: var(--primary-red); }
+  .border-primary-pink { border-color: var(--primary-pink); }
+  
+  /* Gradient backgrounds */
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-pink));
+  }
+  
+  .bg-gradient-full {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-pink), var(--primary-red));
   }
 
-  /* Ray container and animations for Bolt.diy style background */
+  /* Ray container and animations for background */
   .ray-container {
-    --ray-color-primary: color-mix(in srgb, var(--primary-color), transparent 30%);
-    --ray-color-secondary: color-mix(in srgb, var(--secondary-color), transparent 30%);
-    --ray-color-accent: color-mix(in srgb, var(--accent-color), transparent 30%);
+    --ray-color-primary: color-mix(in srgb, rgba(139, 92, 246, var(--gradient-opacity)), transparent 30%);
+    --ray-color-secondary: color-mix(in srgb, rgba(236, 72, 153, var(--gradient-opacity)), transparent 30%);
+    --ray-color-accent: color-mix(in srgb, rgba(59, 130, 246, var(--gradient-opacity)), transparent 30%);
     --ray-gradient-primary: radial-gradient(var(--ray-color-primary) 0%, transparent 70%);
     --ray-gradient-secondary: radial-gradient(var(--ray-color-secondary) 0%, transparent 70%);
     --ray-gradient-accent: radial-gradient(var(--ray-color-accent) 0%, transparent 70%);
@@ -241,5 +392,25 @@
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+  }
+  
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  
+  @keyframes gradientRotate {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(236, 72, 153, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(236, 72, 153, 0.5); }
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
   }
 }
