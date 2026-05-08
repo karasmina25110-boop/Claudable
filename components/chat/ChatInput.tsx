@@ -427,7 +427,7 @@ export default function ChatInput({
             {projectId && (
               (!supportsImageUpload) ? (
                 <div
-                  className="flex items-center justify-center w-8 h-8 text-gray-300 cursor-not-allowed opacity-50 rounded-full"
+                  className="flex items-center justify-center w-8 h-8 text-text-muted cursor-not-allowed opacity-50 rounded-full"
                   title={
                     preferredCli === 'qwen'
                       ? 'Qwen Coder does not support image input. Please use Claude CLI.'
@@ -440,7 +440,7 @@ export default function ChatInput({
                 </div>
               ) : (
                 <div
-                  className="flex items-center justify-center w-8 h-8 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex items-center justify-center w-8 h-8 text-text-tertiary hover:text-text-secondary hover:bg-background-tertiary rounded-full transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                   title="Upload images"
                   onClick={() => {
                     console.log('📸 Upload button clicked:', {
@@ -473,7 +473,7 @@ export default function ChatInput({
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <div className="flex flex-col text-[11px] text-gray-500 ">
+            <div className="flex flex-col text-[11px] text-text-tertiary">
               <span>Assistant</span>
               <select
                 value={preferredCli}
@@ -482,7 +482,7 @@ export default function ChatInput({
                   requestAnimationFrame(() => textareaRef.current?.focus());
                 }}
                 disabled={cliChangeDisabled || !onCliChange}
-                className="mt-1 w-32 rounded-md border border-gray-300 bg-white text-gray-700 text-xs py-1 px-2 focus:outline-none focus:ring-2 focus:ring-gray-300 disabled:opacity-60"
+                className="mt-1 w-32 gradient-select text-xs py-1 px-2 disabled:opacity-60"
               >
                 {cliOptions.length === 0 && <option value={preferredCli}>{preferredCli}</option>}
                 {cliOptions.map(option => (
@@ -492,7 +492,7 @@ export default function ChatInput({
                 ))}
               </select>
             </div>
-            <div className="flex flex-col text-[11px] text-gray-500 ">
+            <div className="flex flex-col text-[11px] text-text-tertiary">
               <span>Model</span>
               <select
                 value={selectedModelValue}
@@ -504,7 +504,7 @@ export default function ChatInput({
                   }
                 }}
                 disabled={modelChangeDisabled || !onModelChange || modelOptionsForCli.length === 0}
-                className="mt-1 w-40 rounded-md border border-gray-300 bg-white text-gray-700 text-xs py-1 px-2 focus:outline-none focus:ring-2 focus:ring-gray-300 disabled:opacity-60"
+                className="mt-1 w-40 gradient-select text-xs py-1 px-2 disabled:opacity-60"
               >
                 {modelOptionsForCli.length === 0 && <option value="">No models available</option>}
                 {modelOptionsForCli.length > 0 && selectedModelValue === '' && (
@@ -526,20 +526,20 @@ export default function ChatInput({
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="w-full ring-offset-background placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50 resize-none text-[16px] leading-snug md:text-base bg-transparent focus:bg-transparent rounded-md p-2 text-gray-900 border border-gray-200 "
+            className="w-full placeholder:text-text-muted focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50 resize-none text-[16px] leading-snug md:text-base bg-transparent focus:bg-transparent rounded-md p-2 text-text-primary border border-border"
             id="chatinput"
             placeholder={placeholder}
             disabled={disabled || isUploading || isSubmitting}
             style={{ minHeight: '60px' }}
           />
           {isDragOver && projectId && supportsImageUpload && (
-            <div className="pointer-events-none absolute inset-0 bg-blue-50/90 rounded-md flex items-center justify-center z-10 border-2 border-dashed border-blue-500">
+            <div className="pointer-events-none absolute inset-0 bg-primary-pink/10 rounded-md flex items-center justify-center z-10 border-2 border-dashed border-primary-pink">
               <div className="text-center">
-                <div className="text-2xl mb-2">📸</div>
-                <div className="text-sm font-medium text-blue-600 ">
+                <ImageIcon className="w-8 h-8 text-primary-pink mx-auto mb-2" />
+                <div className="text-sm font-medium text-primary-pink">
                   Drop images here
                 </div>
-                <div className="text-xs text-blue-500 mt-1">
+                <div className="text-xs text-text-secondary mt-1">
                   Supports: JPG, PNG, GIF, WEBP
                 </div>
               </div>
@@ -548,14 +548,14 @@ export default function ChatInput({
         </div>
 
         <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center bg-gray-100 rounded-full p-0.5">
+          <div className="flex items-center bg-background-tertiary rounded-full p-0.5">
             <button
               type="button"
               onClick={() => onModeChange?.('act')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
                 mode === 'act'
-                  ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700 '
+                  ? 'bg-gradient-primary text-white shadow-sm'
+                  : 'text-text-tertiary hover:text-text-secondary'
               }`}
               title="Act Mode: AI can modify code and create/delete files"
             >
@@ -567,8 +567,8 @@ export default function ChatInput({
               onClick={() => onModeChange?.('chat')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
                 mode === 'chat'
-                  ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700 '
+                  ? 'bg-gradient-primary text-white shadow-sm'
+                  : 'text-text-tertiary hover:text-text-secondary'
               }`}
               title="Chat Mode: AI provides answers without modifying code"
             >
@@ -580,7 +580,7 @@ export default function ChatInput({
           <button
             id="chatinput-send-message-button"
             type="submit"
-            className="flex size-8 items-center justify-center rounded-full bg-gray-900 text-white transition-all duration-150 ease-out disabled:cursor-not-allowed disabled:opacity-50 hover:scale-110 disabled:hover:scale-100"
+            className="flex size-8 items-center justify-center rounded-full bg-gradient-primary text-white transition-all duration-150 ease-out disabled:cursor-not-allowed disabled:opacity-50 hover:scale-110 disabled:hover:scale-100"
             disabled={disabled || isSubmitting || isUploading || (!message.trim() && uploadedImages.length === 0) || isRunning}
           >
             <SendHorizontal className="h-4 w-4" />
@@ -594,7 +594,7 @@ export default function ChatInput({
           <div className="flex flex-wrap gap-2">
             {uploadedImages.map((image, index) => (
               <div key={image.id} className="relative group">
-                <div className="w-16 h-16 bg-gray-100 rounded-lg overflow-hidden border border-gray-300">
+                <div className="w-16 h-16 bg-background-tertiary rounded-lg overflow-hidden border border-border">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={image.url}
@@ -605,21 +605,21 @@ export default function ChatInput({
                 <button
                   type="button"
                   onClick={() => removeImage(image.id)}
-                  className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="absolute -top-1 -right-1 w-5 h-5 bg-primary-red text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
                   title="Remove image"
                 >
                   <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
-                <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-xs px-1 py-0.5 rounded-b-lg truncate">
+                <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white text-xs px-1 py-0.5 rounded-b-lg truncate">
                   {image.filename}
                 </div>
               </div>
             ))}
           </div>
-          <div className="mt-2 text-xs text-gray-500">
-            {uploadedImages.length} image{uploadedImages.length > 1 ? 's' : ''} uploaded • Ready to send
+          <div className="mt-2 text-xs text-text-muted">
+            {uploadedImages.length} image{uploadedImages.length > 1 ? 's' : ''} uploaded - Ready to send
           </div>
         </div>
       )}
